@@ -34,7 +34,7 @@ public class CatController {
   }
 
   // return cats with a specific id
-  @RequestMapping(method = RequestMethod.GET, value = "/cats/(id)")
+  @RequestMapping(method = RequestMethod.GET, value = "/cats/{id}")
   Cat getCatDetails(@PathVariable("id") int id) {
 
     Optional<Cat> result = catsList.stream().filter(p -> p.getId() == id).findAny();
