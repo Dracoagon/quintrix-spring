@@ -1,4 +1,4 @@
-package com.quintrix.jfs.quintrixspring;
+package com.quintrix.jfs.quintrixspring.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
   @RequestMapping("/")
-  String hello() {
-    return "Hello World, Spring Boot!";
+  String HelloWorld() {
+    String hello = "Hello World, Spring Boot!";
+    return hello;
   }
 
 }
