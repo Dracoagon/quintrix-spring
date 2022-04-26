@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.quintrix.jfs.quintrixspqing.services.CatService;
 import com.quintrix.jfs.quintrixspring.models.Cat;
+import com.quintrix.jfs.quintrixspring.services.CatService;
 
 @RestController
 public class CatController {

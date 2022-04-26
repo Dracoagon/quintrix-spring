@@ -1,4 +1,4 @@
-package com.quintrix.jfs.quintrixspqing.services;
+package com.quintrix.jfs.quintrixspring.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
