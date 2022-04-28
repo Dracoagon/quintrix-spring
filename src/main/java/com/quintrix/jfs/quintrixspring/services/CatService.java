@@ -1,22 +1,22 @@
 package com.quintrix.jfs.quintrixspring.services;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.quintrix.jfs.quintrixspring.models.Cat;
+import com.quintrix.jfs.quintrixspring.repositories.CatRepository;
 
 @Service
 public class CatService {
 
-  List<Cat> catsList = new ArrayList<>(Arrays.asList(
-
-      new Cat(1, "Carl", "Egyptian", 2), new Cat(2, "Felicia", "Calico", 4),
-      new Cat(3, "Spatz", "Persian", 9)));
+  @Autowired
+  private CatRepository catRepo;
 
   public List<Cat> getCats(String name) {
+    List<Cat> catsList = catRepo.findAll();
+
     if (name != null) {
       return catsList.stream().filter(p -> p.getName().equals(name)).collect(Collectors.toList());
     } else {
@@ -25,6 +25,8 @@ public class CatService {
   }
 
   public Cat getCatDetails(int id) {
+    List<Cat> catsList = catRepo.findAll();
+
     Optional<Cat> cat = catsList.stream().filter(p -> p.getId() == id).findAny();
 
     if (cat.isPresent()) {
@@ -35,6 +37,8 @@ public class CatService {
   }
 
   public Cat addCat(Cat cat) {
+    List<Cat> catsList = catRepo.findAll();
+
     catsList.add(cat);
     return cat;
   }
