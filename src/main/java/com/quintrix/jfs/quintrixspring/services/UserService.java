@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -22,7 +23,12 @@ public class UserService {
         restTemplate.exchange("https://gorest.co.in/public/v2/users", HttpMethod.GET, null,
             new ParameterizedTypeReference<List<User>>() {});
 
-    List<User> userList = userListResponseBody.getBody();
+    List<User> userList = null;
+
+    if (userListResponseBody.getStatusCode() == HttpStatus.OK) {
+      userList = userListResponseBody.getBody();
+    }
+
     if (name != null) {
       return userList.stream().filter(p -> p.getName().equals(name)).collect(Collectors.toList());
     } else {
@@ -35,7 +41,11 @@ public class UserService {
         restTemplate.exchange("https://gorest.co.in/public/v2/users", HttpMethod.GET, null,
             new ParameterizedTypeReference<List<User>>() {});
 
-    List<User> userList = userListResponseBody.getBody();
+    List<User> userList = null;
+
+    if (userListResponseBody.getStatusCode() == HttpStatus.OK) {
+      userList = userListResponseBody.getBody();
+    }
 
     Optional<User> user = userList.stream().filter(p -> p.getId().equals(id)).findAny();
 
