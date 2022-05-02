@@ -52,7 +52,7 @@ public class UserService {
     if (user.isPresent()) {
       return user.get();
     } else {
-      return new User();
+      throw new IllegalStateException("Could not find matching Id");
     }
   }
 
