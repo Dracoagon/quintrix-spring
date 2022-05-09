@@ -31,9 +31,13 @@ public class CatService {
   }
 
   public Cat getCatDetails(int id) {
-    List<Cat> catsList = catRepo.findAll();
+    /*
+     * List<Cat> catsList = catRepo.findAll();
+     * 
+     * Optional<Cat> cat = catsList.stream().filter(p -> p.getId() == id).findAny();
+     */
 
-    Optional<Cat> cat = catsList.stream().filter(p -> p.getId() == id).findAny();
+    Optional<Cat> cat = catRepo.findById(id);
 
     if (cat.isPresent()) {
       logger.debug("Service: Retrieved ID value: {}", id);
@@ -45,9 +49,7 @@ public class CatService {
   }
 
   public Cat addCat(Cat cat) {
-    List<Cat> catsList = catRepo.findAll();
-
-    catsList.add(cat);
+    catRepo.save(cat);
     logger.debug("Service: post completed.");
     return cat;
   }
