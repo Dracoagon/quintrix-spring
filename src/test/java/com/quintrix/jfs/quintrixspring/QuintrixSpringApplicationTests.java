@@ -1,5 +1,10 @@
 package com.quintrix.jfs.quintrixspring;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.beans.HasProperty.hasProperty;
+import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
@@ -31,7 +36,7 @@ class QuintrixSpringApplicationTests {
 
     when(catRepo.findAll()).thenReturn(testCats);
 
-    assertEquals(3, catService.getCats(null).size());
+    assertEquals(catService.getCats(null), hasSize(3));
   }
 
   @Test
@@ -44,14 +49,16 @@ class QuintrixSpringApplicationTests {
     int id = 1;
 
     when(catRepo.findById(id)).thenReturn(Optional.of(new Cat(1, "Coco", "Kitty", 1)));
+    Cat testCat = catService.getCatDetails(id);
 
-    assertEquals(id, catService.getCatDetails(id).getId());
+    assertThat(testCat, hasProperty("id"));
+    assertThat(testCat.getId(), equalTo(1));
   }
 
   @Test
   public void postCatsTest() {
     Cat testCat = new Cat(1, "Coco", "Kitty", 1);
     when(catRepo.save(testCat)).thenReturn(testCat);
-    assertEquals(testCat, catService.addCat(testCat));
+    assertThat(testCat, samePropertyValuesAs(catService.addCat(testCat)));
   }
 }
